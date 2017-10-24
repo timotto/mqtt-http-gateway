@@ -1,0 +1,53 @@
+{
+  "scripts": {
+    "tsc": "tsc",
+    "tsserver": "tsserver",
+    "eslint": "eslint",
+    "cleanstart": "rm -rf dist && tsc && node dist",
+    "start": "tsc && node dist",
+    "test": "jasmine-ts --config=jasmine.json",
+    "tests": "nodemon -w src --ext ts --exec yarn run test",
+    "dev": "nodemon -w src --ext ts --exec yarn run start"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^2.6.0",
+    "@types/nock": "^8.2.1",
+    "@types/sinon": "^2.3.6",
+    "jasmine": "^2.8.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "jasmine-ts": "^0.2.1",
+    "nock": "^9.0.22",
+    "nodemon": "^1.12.1",
+    "sinon": "^4.0.1",
+    "typemoq": "^2.0.1",
+    "typescript": "^2.5.2",
+    "typescript-eslint-parser": "^8.0.0",
+    "yarn": "^1.1.0"
+  },
+  "dependencies": {
+    "@types/cookie-parser": "^1.4.1",
+    "@types/errorhandler": "^0.0.31",
+    "@types/express": "^4.0.37",
+    "@types/method-override": "^0.0.30",
+    "@types/mongoose": "^4.7.23",
+    "@types/morgan": "^1.7.33",
+    "@types/pouchdb": "^6.3.1",
+    "@types/pouchdb-find": "^6.3.0",
+    "babel-polyfill": "^6.26.0",
+    "cookie-parser": "^1.4.3",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.1",
+    "express-crudify-mongoose": "^5.0.1",
+    "inversify": "^4.3.0",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0",
+    "mqtt": "^2.13.0",
+    "plex-api": "^5.2.0",
+    "pouchdb": "^6.3.4",
+    "pouchdb-find": "^6.3.4",
+    "reflect-metadata": "^0.1.10",
+    "requestify": "^0.2.5",
+    "rxjs": "^5.4.3"
+  },
+  "license": "Apache-2.0"
+}

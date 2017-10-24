@@ -1,0 +1,5 @@
+.idea/
+db/
+dist/
+*.iml
+node_modules/
