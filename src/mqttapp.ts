@@ -9,11 +9,16 @@ import * as debugModule from 'debug';
 
 const debug = debugModule('mqtt-http-gateway:mqtthandler');
 
+const errorHandler = error => {
+    console.error('db error', error);
+    process.exit(1);
+};
+
 const MqttApp = {
     start: () => {
         mqtthookConfigurationDb.changes({since: 'now', live: true, include_docs: true})
             .on('change', handleDocument)
-            .on('error', error => console.error('db sync error', error));
+            .on('error', errorHandler);
 
         mqtthookConfigurationDb.allDocs({include_docs: true})
             .then(allDocs => allDocs.rows.forEach(handleDocument))
@@ -31,6 +36,10 @@ const handleDocument = (doc) => {
     }
 
     if (doc.deleted) {
+        return;
+    }
+
+    if (!doc.doc.mqttServerUrl) {
         return;
     }
 
