@@ -1,16 +1,22 @@
-FROM node:8-alpine
+FROM node:8-alpine AS build
 
-ADD . /app
+ADD . /build
+
+WORKDIR /build
+
+RUN apk update && apk add python make g++ && \
+    npm install -g yarn && \
+    yarn install && \
+    yarn run test && \
+    yarn run tsc && \
+    rm -rf node_modules/ && \
+    yarn install --production=true
+
+FROM node:8-alpine AS runtime
+
+COPY --from=build /build /app
 
 WORKDIR /app
-
-RUN apk update && apk add python make g++
-
-RUN npm install -g yarn
-
-RUN yarn install
-
-RUN yarn run tsc
 
 ENV PORT 8080
 
