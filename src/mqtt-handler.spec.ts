@@ -1,10 +1,11 @@
-import {MqttHandler, MqttMessage, MqttServerConnection} from "./mqtt-handler";
+import {MqttHandler, MqttMessage, MqttServerConnection, TopicSubscription} from "./mqtt-handler";
 
 import * as mqtt from "mqtt";
 import createSpy = jasmine.createSpy;
 import any = jasmine.any;
 import {OnMessageCallback} from "mqtt";
 import {Subscription} from "rxjs/Subscription";
+import {Subscriber} from "rxjs/Subscriber";
 
 describe('MqttHandler', () => {
 
@@ -53,6 +54,16 @@ describe('MqttHandler', () => {
         mqttServerConnection.serverUrl = expectedServerUrl;
         mqttServerConnection.options = expectedOptions;
 
+    });
+
+    describe('constructor', () => {
+        it('has a default idle timeout value of 60 seconds', () => {
+            // when
+            const unitUnderTest = new MqttHandler();
+
+            // then
+            expect((unitUnderTest as any).idleTimeout).toEqual(60000);
+        });
     });
 
     describe('subscribe(connection, topic)', () => {
@@ -294,6 +305,38 @@ describe('MqttHandler', () => {
                     done();
                 }, testIdleTimeout + 1000);
             });
+        });
+    });
+});
+
+describe('TopicSubscription', () => {
+    let unitUnderTest: TopicSubscription;
+    let mockSubscriber1: Subscriber<MqttMessage>;
+    let mockSubscriber2: Subscriber<MqttMessage>;
+    beforeEach(() => {
+        unitUnderTest = new TopicSubscription();
+        mockSubscriber1 = jasmine.createSpyObj<Subscriber<MqttMessage>>('Subscriber', ['error', 'next']);
+        mockSubscriber2 = jasmine.createSpyObj<Subscriber<MqttMessage>>('Subscriber', ['error', 'next']);
+    });
+    describe('error(arg)', () => {
+        it('calls error(arg) on each subscriber', () => {
+            // given
+            unitUnderTest.subscribe(mockSubscriber1);
+            unitUnderTest.subscribe(mockSubscriber2);
+
+            // when
+            const expectedError = 'expected error';
+            unitUnderTest.error(expectedError);
+
+            // then
+            expect(mockSubscriber1.error).toHaveBeenCalledWith(expectedError);
+            expect(mockSubscriber2.error).toHaveBeenCalledWith(expectedError);
+        });
+    });
+    describe('unsubscribe(arg)', () => {
+        it('it does nothing if the subscriber is not subscribed at all', () => {
+            // when
+            unitUnderTest.unsubscribe(mockSubscriber2);
         });
     });
 });

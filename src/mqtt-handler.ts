@@ -150,7 +150,7 @@ export class MqttHandler {
 
 }
 
-class TopicSubscription {
+export class TopicSubscription {
     subscribers: Subscriber<MqttMessage>[] = [];
 
     subscribe(subscriber: Subscriber<MqttMessage>) {
