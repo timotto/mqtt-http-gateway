@@ -22,7 +22,7 @@
     "nyc": "^11.4.1",
     "typemoq": "^2.0.1",
     "typescript": "^2.5.2",
-    "typescript-eslint-parser": "^13.0.0",
+    "typescript-eslint-parser": "^14.0.0",
     "yarn": "^1.1.0"
   },
   "dependencies": {
