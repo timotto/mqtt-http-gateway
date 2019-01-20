@@ -4,8 +4,7 @@ import * as mqtt from "mqtt";
 import createSpy = jasmine.createSpy;
 import any = jasmine.any;
 import {OnMessageCallback} from "mqtt";
-import {Subscription} from "rxjs/Subscription";
-import {Subscriber} from "rxjs/Subscriber";
+import {Subscriber, Subscription} from "rxjs";
 
 describe('MqttHandler', () => {
 

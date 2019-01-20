@@ -11,19 +11,20 @@
     "dev": "nodemon -w src --ext ts --exec yarn run start"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.8.6",
+    "@types/jasmine": "^3.3.5",
     "@types/nock": "^9.1.2",
+    "@typescript-eslint/parser": "^0.2.1",
     "coveralls": "^3.0.0",
-    "jasmine": "^3.0.0",
+    "eslint": "^5.12.1",
+    "jasmine": "^3.3.1",
     "jasmine-spec-reporter": "^4.2.1",
-    "jasmine-ts": "^0.2.1",
-    "nock": "^9.1.2",
+    "jasmine-ts": "^0.3.0",
+    "nock": "^10.0.6",
     "nodemon": "^1.12.1",
-    "nyc": "^11.4.1",
+    "nyc": "^13.1.0",
+    "ts-node": "^7.0.1",
     "typemoq": "^2.0.1",
-    "typescript": "^2.5.2",
-    "typescript-eslint-parser": "^14.0.0",
-    "yarn": "^1.1.0"
+    "typescript": "^3.2.4"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.1",
@@ -36,14 +37,14 @@
     "cookie-parser": "^1.4.3",
     "errorhandler": "^1.5.0",
     "express": "^4.16.1",
-    "inversify": "^4.3.0",
+    "inversify": "^5.0.1",
     "morgan": "^1.9.0",
     "mqtt": "^2.15.2",
-    "pouchdb": "^6.3.4",
-    "pouchdb-find": "^6.3.4",
+    "pouchdb": "^7.0.0",
+    "pouchdb-find": "^7.0.0",
     "reflect-metadata": "^0.1.10",
     "requestify": "^0.2.5",
-    "rxjs": "^5.4.3"
+    "rxjs": "^6.3.3"
   },
   "license": "Apache-2.0"
 }
