@@ -2,7 +2,6 @@
   "scripts": {
     "tsc": "tsc",
     "tsserver": "tsserver",
-    "eslint": "eslint",
     "cleanstart": "rm -rf dist && tsc && node dist",
     "start": "tsc && node dist",
     "tests": "nodemon -w src --ext ts --exec yarn run test",
@@ -13,9 +12,7 @@
   "devDependencies": {
     "@types/jasmine": "^3.3.5",
     "@types/nock": "^9.1.2",
-    "@typescript-eslint/parser": "^0.2.1",
     "coveralls": "^3.0.0",
-    "eslint": "^5.12.1",
     "jasmine": "^3.3.1",
     "jasmine-spec-reporter": "^4.2.1",
     "jasmine-ts": "^0.3.0",
@@ -23,7 +20,6 @@
     "nodemon": "^1.12.1",
     "nyc": "^13.1.0",
     "ts-node": "^7.0.1",
-    "typemoq": "^2.0.1",
     "typescript": "^3.2.4"
   },
   "dependencies": {
@@ -37,12 +33,10 @@
     "cookie-parser": "^1.4.3",
     "errorhandler": "^1.5.0",
     "express": "^4.16.1",
-    "inversify": "^5.0.1",
     "morgan": "^1.9.0",
     "mqtt": "^2.15.2",
     "pouchdb": "^7.0.0",
     "pouchdb-find": "^7.0.0",
-    "reflect-metadata": "^0.1.10",
     "requestify": "^0.2.5",
     "rxjs": "^6.3.3"
   },

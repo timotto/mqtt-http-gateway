@@ -4,7 +4,7 @@ ADD . /build
 
 WORKDIR /build
 
-RUN apk update && apk add python make g++ && \
+RUN apk --update add python make g++ && \
     yarn install && \
     yarn run test && \
     yarn run tsc && \
