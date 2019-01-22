@@ -1,0 +1,11 @@
+name: mqtt-http-gateway
+version: 1.0.0
+description: A bidirectional HTTP-MQTT gateway I use to trigger actions on MQTT home automation equipment from IFTTT
+keywords:
+  - mqtt
+  - http
+  - iot
+maintainers:
+  - name: tim
+    email: tim@timotto.io
+engine: gotpl

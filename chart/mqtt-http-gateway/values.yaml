@@ -1,0 +1,32 @@
+image:
+  repository: timotto/mqtt-http-gateway
+  tag: latest
+  pullPolicy: Always
+
+dburl: https://user:password@couchdb.namespace.svc
+debug: "mqtt-http-gateway:*"
+
+imagePullSecrets:
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+  annotations:
+  nodePort:
+  clusterIP:
+
+ingress:
+  enabled: false
+  path: /
+  hosts:
+    - chart-example.local
+  annotations:
+  tls:
+  labels:
+resources: {}
+podAnnotations: {}
+
+fullnameOverride:
+nameOverride:
