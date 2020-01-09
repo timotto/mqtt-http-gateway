@@ -45,6 +45,7 @@ resources:
     repository: timotto/mqtt-http-gateway-armv7
     username: ((dockerhub.username))
     password: ((dockerhub.password))
+    dockerd: ((dockerd))
 
 - name: slack-notify
   type: slack-notification
