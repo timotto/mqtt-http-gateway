@@ -30,7 +30,7 @@ resources:
   source:
     uri: git@github.com:timotto/mqtt-http-gateway.git
     private_key: ((github.private_key))
-    branch: nodb
+    branch: master
 
 - name: amd64
   type: docker-image
