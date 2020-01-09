@@ -21,7 +21,7 @@ jobs:
           type: registry-image
           source:
             repository: node
-            tag: alpine
+            tag: 12-alpine
         inputs:
         - name: source-code
         caches:
