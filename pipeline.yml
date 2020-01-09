@@ -14,27 +14,6 @@ jobs:
     do:
     - get: source-code
       trigger: true
-    - task: test
-      config:
-        platform: linux
-        image_resource:
-          type: registry-image
-          source:
-            repository: node
-            tag: 12-alpine
-        inputs:
-        - name: source-code
-        caches:
-        - path: cache/npm
-        run:
-          path: sh
-          args:
-          - -exc
-          - |
-            ln -s $PWD/cache/npm source-code/node_modules
-            cd source-code
-            npm install
-            npm run test
     - in_parallel:
       - put: amd64
         params:
