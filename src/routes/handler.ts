@@ -1,18 +1,19 @@
 import {Router} from 'express';
 import {MqttHandler} from '../mqtt-handler';
-import * as PouchDB from 'pouchdb';
+import {EnvConfig} from '../repository/config';
+import {HttpToMqtt} from '../repository';
 
 const handler: Router = Router();
 const mqttHandler: MqttHandler = new MqttHandler();
+const config = new EnvConfig(process.env.MHG_CONFIG);
 
-const webhookConfigurationDb = new PouchDB(`${process.env.DBURL}/mhg-webhooks`);
-
-handler.post('/:id', (req, res) => webhookConfigurationDb.get(req.params['id'])
+handler.post('/:id', (req, res) =>
+  config.httpToMqt(req.params['id'])
     .then(result => executeWebhook(req, res, result))
     .catch(error => reportError(res, error)));
 
 
-const executeWebhook = (req, res, webhook) => mqttHandler.publish(
+const executeWebhook = (req, res, webhook: HttpToMqtt) => mqttHandler.publish(
     {serverUrl: webhook.mqttServerUrl, options: webhook.mqttServerOptions},
     {topic: webhook.topic, message: extractMessage(req)})
     .subscribe(

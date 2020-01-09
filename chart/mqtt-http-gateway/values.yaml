@@ -3,8 +3,24 @@ image:
   tag: latest
   pullPolicy: Always
 
-dburl: https://user:password@couchdb.namespace.svc
 debug: "mqtt-http-gateway:*"
+config:
+  mqttToHttp:
+  - webhook: http://url-to-call-on-topic
+    mqttServerUrl: mqtt://mqtt-host
+    mqttServerOptions:
+      clientId:
+      username:
+      password:
+  httpToMqtt:
+    someId:
+      mqttServerUrl: mqtt://mqtt-host
+      mqttServerOptions:
+        clientId:
+        username:
+        password:
+      topic: string
+
 
 imagePullSecrets:
 

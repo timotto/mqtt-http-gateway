@@ -1,0 +1,92 @@
+jobs:
+- name: build
+  serial: true
+  plan:
+  -
+    on_success:
+      put: slack-notify
+      params:
+        text: mqtt-http-gateway released 🥳
+    on_failure:
+      put: slack-alert
+      params:
+        text: mqtt-http-gateway pipeline failed 😭
+    do:
+    - get: source-code
+      trigger: true
+    - task: test
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: node
+            tag: alpine
+        inputs:
+        - name: source-code
+        caches:
+        - path: cache/npm
+        run:
+          path: sh
+          args:
+          - -exc
+          - |
+            ln -s $PWD/cache/npm source-code/node_modules
+            cd source-code
+            npm install
+            npm run test
+    - in_parallel:
+      - put: amd64
+        params:
+          build: source-code
+          tag: source-code/.git/short_ref
+      - put: armv7
+        params:
+          build: source-code
+          tag: source-code/.git/short_ref
+
+resources:
+- name: source-code
+  type: git
+  source:
+    uri: git@github.com:timotto/mqtt-http-gateway.git
+    private_key: ((github.private_key))
+    branch: nodb
+
+- name: amd64
+  type: docker-image
+  source:
+    repository: timotto/mqtt-http-gateway-amd64
+    username: ((dockerhub.username))
+    password: ((dockerhub.password))
+
+- name: armv7
+  type: remote-docker-image
+  source:
+    repository: timotto/mqtt-http-gateway-armv7
+    username: ((dockerhub.username))
+    password: ((dockerhub.password))
+
+- name: slack-notify
+  type: slack-notification
+  source:
+    url: ((slack.low_prio_webhook_url))
+
+- name: slack-alert
+  type: slack-notification
+  source:
+    url: ((slack.webhook_url))
+
+resource_types:
+- name: remote-docker-image
+  type: registry-image
+  privileged: true
+  source:
+    repository: timotto/docker-image-resource
+    tag: modernize
+
+- name: slack-notification
+  type: registry-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest

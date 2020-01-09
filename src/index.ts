@@ -2,8 +2,11 @@ import app from './webapp';
 import mqttApp from './mqttapp';
 import * as debugModule from 'debug';
 import * as http from 'http';
+import {EnvConfig} from './repository/config';
 
 const debug = debugModule('mqtt-http-gateway:server');
+
+const config = new EnvConfig(process.env.MHG_CONFIG);
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '8080');
@@ -17,7 +20,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-mqttApp.start();
+mqttApp.start(config).catch(onError);
 
 /**
  * Event listener for HTTP server "error" event.
