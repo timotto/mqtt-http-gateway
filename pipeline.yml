@@ -1,3 +1,11 @@
+common:
+  docker_put: &docker_put
+    params:
+      build: source-code
+      tag: source-code/.git/short_ref
+    get_params:
+      skip_download: true
+
 jobs:
 - name: build
   serial: true
@@ -16,13 +24,9 @@ jobs:
       trigger: true
     - in_parallel:
       - put: amd64
-        params:
-          build: source-code
-          tag: source-code/.git/short_ref
+        <<: *docker_put
       - put: armv7
-        params:
-          build: source-code
-          tag: source-code/.git/short_ref
+        <<: *docker_put
 
 resources:
 - name: source-code
@@ -31,6 +35,9 @@ resources:
     uri: git@github.com:timotto/mqtt-http-gateway.git
     private_key: ((github.private_key))
     branch: master
+    ignore_paths:
+    - pipeline.yml
+    - README.md
 
 - name: amd64
   type: docker-image
