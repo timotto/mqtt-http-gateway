@@ -12,7 +12,7 @@ const app: express.Express = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.text());
 app.use('/handler', httpHandler(config, mqttHandler));
 
 // catch 404 and forward to error handler

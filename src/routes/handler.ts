@@ -21,8 +21,11 @@ const httpHandler = (config: EnvConfig, mqttHandler: MqttHandler): Router =>{
     return handler;
 };
 
-
-const extractMessage = (req) => req.body !== undefined ? req.body['message'] : undefined;
+const extractMessage = (req) => {
+    if (!req.body) return undefined;
+    if (req.body['message']) return req.body['message'];
+    return req.body;
+};
 
 const reportError = (res, error) => {
     console.error(error);
