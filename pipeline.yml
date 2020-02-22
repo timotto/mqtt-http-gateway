@@ -2,7 +2,7 @@ common:
   docker_put: &docker_put
     params:
       build: source-code
-      tag: source-code/.git/short_ref
+      tag_as_latest: false
     get_params:
       skip_download: true
 
@@ -27,6 +27,17 @@ jobs:
         <<: *docker_put
       - put: armv7
         <<: *docker_put
+    - put: image
+      params:
+        tag_file: source-code/.git/short_ref
+        manifests:
+        - arch: amd64
+          os: linux
+          digest_file: amd64/digest
+        - arch: arm
+          variant: v7
+          os: linux
+          digest_file: armv7/digest
 
 resources:
 - name: source-code
@@ -42,17 +53,26 @@ resources:
 - name: amd64
   type: docker-image
   source:
-    repository: timotto/mqtt-http-gateway-amd64
+    repository: timotto/mqtt-http-gateway
+    tag: amd64
     username: ((dockerhub.username))
     password: ((dockerhub.password))
 
 - name: armv7
   type: remote-docker-image
   source:
-    repository: timotto/mqtt-http-gateway-armv7
+    repository: timotto/mqtt-http-gateway
+    tag: armv7
     username: ((dockerhub.username))
     password: ((dockerhub.password))
     dockerd: ((dockerd))
+
+- name: image
+  type: docker-manifest
+  source:
+    repository: timotto/mqtt-http-gateway
+    username: ((dockerhub.username))
+    password: ((dockerhub.password))
 
 - name: slack-notify
   type: slack-notification
@@ -77,3 +97,8 @@ resource_types:
   source:
     repository: cfcommunity/slack-notification-resource
     tag: latest
+
+- name: docker-manifest
+  type: registry-image
+  source:
+    repository: mbialon/concourse-docker-manifest-resource
