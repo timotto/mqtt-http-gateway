@@ -39,6 +39,14 @@ jobs:
           os: linux
           digest_file: armv7/digest
 
+- name: set-pipeline
+  serial: true
+  plan:
+  - get: pipeline-source
+    trigger: true
+  - set_pipeline: mhg
+    file: pipeline-source/pipeline.yml
+
 resources:
 - name: source-code
   type: git
@@ -49,6 +57,15 @@ resources:
     ignore_paths:
     - pipeline.yml
     - README.md
+
+- name: pipeline-source
+  type: git
+  source:
+    uri: git@github.com:timotto/mqtt-http-gateway.git
+    private_key: ((github.private_key))
+    branch: master
+    paths:
+    - pipeline.yml
 
 - name: amd64
   type: docker-image
