@@ -1,15 +1,19 @@
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
-import handler from './routes/handler';
+import httpHandler from './routes/handler';
+import {MqttHandler} from './mqtt-handler';
+import {EnvConfig} from './repository/config';
+
+const config = new EnvConfig(process.env.MHG_CONFIG);
+const mqttHandler: MqttHandler = new MqttHandler();
 
 const app: express.Express = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use('/handler', handler);
+app.use('/handler', httpHandler(config, mqttHandler));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
