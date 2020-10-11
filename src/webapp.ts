@@ -14,6 +14,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use('/handler', httpHandler(config, mqttHandler));
+app.get('/health', (req, res) => res.send('😃'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
