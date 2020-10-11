@@ -15,25 +15,25 @@
   "license": "Apache-2.0",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "debug": "^4.1.1",
+    "debug": "^4.2.0",
     "express": "^4.17.1",
-    "morgan": "^1.9.1",
+    "morgan": "^1.10.0",
     "mqtt": "^3.0.0",
     "requestify": "^0.2.5",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.6.3"
   },
   "devDependencies": {
-    "@types/express": "^4.17.2",
-    "@types/jasmine": "^3.5.0",
-    "@types/node": "^13.1.6",
-    "@types/supertest": "^2.0.8",
-    "jasmine": "^3.5.0",
+    "@types/express": "^4.17.8",
+    "@types/jasmine": "^3.5.14",
+    "@types/node": "^13.13.25",
+    "@types/supertest": "^2.0.10",
+    "jasmine": "^3.6.1",
     "jasmine-spec-reporter": "^4.2.1",
     "jasmine-ts": "^0.3.0",
-    "nodemon": "^2.0.2",
-    "nyc": "^15.0.0",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.1.0",
     "supertest": "^4.0.2",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.4"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
   }
 }
