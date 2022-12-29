@@ -27,6 +27,8 @@ jobs:
         <<: *docker_put
       - put: armv7
         <<: *docker_put
+      - put: arm64
+        <<: *docker_put
     - put: image
       params:
         tag_file: source-code/.git/short_ref
@@ -38,6 +40,9 @@ jobs:
           variant: v7
           os: linux
           digest_file: armv7/digest
+        - arch: arm64
+          os: linux
+          digest_file: arm64/digest
 
 - name: set-pipeline
   serial: true
@@ -83,6 +88,15 @@ resources:
     username: ((dockerhub.username))
     password: ((dockerhub.password))
     dockerd: ((dockerd))
+
+- name: arm64
+  type: remote-docker-image
+  source:
+    repository: timotto/mqtt-http-gateway
+    tag: arm64
+    username: ((dockerhub.username))
+    password: ((dockerhub.password))
+    dockerd: ((dockerd-arm64))
 
 - name: image
   type: docker-manifest
